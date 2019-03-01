@@ -1,0 +1,31 @@
+<form (ngSubmit)="onSubmit(placeForm)" #placeForm="ngForm">
+
+  <div  class="form-group">
+    <label for="wLong">West Longitude</label>
+    <input required ngModel name="wLong" #wLong="ngModel" id="wLong" type="text" class="form-control">
+    <div class="alert alert-danger" *ngIf="wLong.touched && !wLong.valid">Pleast Input a West Longitude</div>
+  </div>
+
+  <div  class="form-group">
+      <label for="sLat">South Latitude</label>
+      <input required ngModel name="sLat" #sLat="ngModel" id="sLat" type="text" class="form-control">
+      <div class="alert alert-danger" *ngIf="sLat.touched && !sLat.valid">Pleast Input a South Latitude</div>
+  </div>
+
+  <div  class="form-group">
+      <label for="eLong">East Longitude</label>
+      <input required ngModel name="eLong" #eLong="ngModel" id="eLong" type="text" class="form-control">
+      <div class="alert alert-danger" *ngIf="eLong.touched && !eLong.valid">Pleast Input an East Longitude</div>
+  </div>
+
+  <div  class="form-group">
+      <label for="nLat">North Latitude</label>
+      <input required ngModel name="nLat" #nLat="ngModel" id="nLat" type="text" class="form-control">
+      <div class="alert alert-danger" *ngIf="nLat.touched && !nLat.valid">Pleast Input a North Latitude</div>
+  </div>
+
+  <button type="submit" class = "btn btn-primary">Submit</button>
+
+  <app-query-display></app-query-display>
+
+</form>
