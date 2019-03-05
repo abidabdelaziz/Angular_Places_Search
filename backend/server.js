@@ -3,38 +3,38 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const path = require("path")
 const app = express();
+const request = require("request")
 const environment= require('./keys')
 
 
-
-// app.use('/', routes);
 app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-// Point static path to dist, running ng build creates dist folder
+
 let reqPath = __dirname.substring(0,__dirname.length-7)
 
-console.log(reqPath)
 app.use(express.static(path.join(reqPath, '/dist/angular-places-search')));
-// app.use(express.static(path.join(__dirname, '..', 'app')));
-
-// let appId = environment.environment.appId;
-// let appCode = environment.environment.appCode;
-// let URL= `https://places.cit.api.here.com/places/v1/discover/search?app_id={${appId}}&app_code={${appCode}}&in=${wLong},${sLat},${eLong},${nLat}&pretty`
 
 app.get('/api/find/places', (req, res) => { 
 
    let appId = environment.environment.appId;
    let appCode = environment.environment.appCode;
-   let URL= `https://places.cit.api.here.com/places/v1/discover/search?app_id={${appId}}&app_code={${appCode}}&in=${req.query.westLong},${req.query.southLat},${req.query.eastLong},${req.query.northLat}&pretty`
-  //res.json()
+   let URL= `https://places.cit.api.here.com/places/v1/discover/search?app_id={${appId}}&app_code={${appCode}}&in=${req.query.westLong},${req.query.southLat},${req.query.eastLong},${req.query.northLat}&pretty`;
   
-  console.log(URL)
-  
-}
-);
+   console.log(URL)
+
+   request(URL, function (error, response, body) {
+        let data={
+          body:body,
+        };
+      console.log(error,response)
+      res.send(data);
+
+      });
+});
 
 
-app.get('/test', (req, res) => res.send('Well this route was hit!'));
+app.get('/test', (req, res) => res.send('Well this route was a hit! Bada....tsss'));
 
 // CATCH ALL
 app.get('*', (req, res) => {
